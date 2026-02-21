@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="QuitIt.API/QuitIt.API.csproj" />
+  <Project Path="QuitIt.Tests/QuitIt.Tests.csproj" />
+</Solution>
