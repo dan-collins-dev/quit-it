@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
-
+using QuitIt.API.Data;
+using QuitIt.API.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,7 +21,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/", () => "Initial Commit for Quit It");
+Utils.CreateDefaultData();
+
+app.MapGet("/", () => Utils.GetDays());
+app.MapGet("/:id", (int id) => Utils.GetDays().Where(day => day.Id == id));
 
 
 
