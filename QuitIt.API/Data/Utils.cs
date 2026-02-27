@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text.Json;
 using QuitIt.API.Models;
 
@@ -6,27 +7,51 @@ namespace QuitIt.API.Data;
 
 public static class Utils
 {
-    private static string FilePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "days.json");
+    private static string FilePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "smokerLogs.json");
     private static JsonSerializerOptions Options = new() {
         PropertyNameCaseInsensitive = true
     };
 
     public static void CreateDefaultData()
     {
-        List<Day> days = new List<Day>()
+        List<SmokerLog> logs = new List<SmokerLog>()
         {
-            new Day(1, new DateOnly(2026, 2, 21), new DateTime(2026, 2, 25), 1),
-            new Day(2, new DateOnly(2026, 1, 2), new DateTime(2026, 1, 2), 2),
-            new Day(3, new DateOnly(2026, 2, 2), new DateTime(2026, 2, 2), 3),
+            new (1, new DateOnly(2026, 2, 21), new DateTime(2026, 2, 25), 1),
+            new (2, new DateOnly(2026, 1, 2), new DateTime(2026, 1, 2), 2),
+            new (3, new DateOnly(2026, 2, 2), new DateTime(2026, 2, 2), 3),
         };
 
-        string stringifiedDays = JsonSerializer.Serialize<List<Day>>(days, Options);
-        File.WriteAllText(FilePath, stringifiedDays);
+        SaveSmokerLogs(logs);
     }
 
-    public static List<Day> GetDays()
+    public static void SaveSmokerLogs(List<SmokerLog> logs) {
+        string stringifiedLogs = JsonSerializer.Serialize<List<SmokerLog>>(logs, Options);
+        File.WriteAllText(FilePath, stringifiedLogs);
+    }
+
+    public static List<SmokerLog> GetSmokerLogs()
     {
         string jsonString = File.ReadAllText(FilePath);
-        return JsonSerializer.Deserialize<List<Day>>(jsonString, Options);
+        return JsonSerializer.Deserialize<List<SmokerLog>>(jsonString, Options);
+    }
+
+    public static bool IsNewDay
+    {
+        get
+        {
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+
+            string jsonString = File.ReadAllText(FilePath);
+            var logs = JsonSerializer.Deserialize<List<SmokerLog>>(jsonString, Options);
+
+            if (logs == null || logs.Count == 0)
+            {
+                return true;
+            }
+
+            DateOnly lastDate = logs.Max(log => log.Date);
+
+            return today > lastDate;
+        }
     }
 }

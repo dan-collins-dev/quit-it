@@ -8,7 +8,6 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,8 +22,7 @@ app.UseHttpsRedirection();
 
 Utils.CreateDefaultData();
 
-app.MapGet("/", () => Utils.GetDays());
-app.MapGet("/:id", (int id) => Utils.GetDays().Where(day => day.Id == id));
+app.MapGet("/api/logs", () => Utils.GetSmokerLogs());
 
 
 
