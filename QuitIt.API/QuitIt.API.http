@@ -1,6 +1,7 @@
 @QuitIt.API_HostAddress = http://localhost:5150
 
-GET {{QuitIt.API_HostAddress}}/weatherforecast/
+GET {{QuitIt.API_HostAddress}}/
 Accept: application/json
 
 ###
+GET

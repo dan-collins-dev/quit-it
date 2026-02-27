@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
-
+using QuitIt.API.Data;
+using QuitIt.API.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 var app = builder.Build();
 
@@ -21,7 +20,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/", () => "Initial Commit for Quit It");
+Utils.CreateDefaultData();
+
+app.MapGet("/api/logs", () => Utils.GetSmokerLogs());
 
 
 
