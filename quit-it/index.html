@@ -9,23 +9,52 @@
         <title>Quit It</title>
     </head>
     <body>
-        
         <header class="header">
             <div class="logo-container">
                 <img class="logo" src="./logo-no-smoking.svg" alt="" />
             </div>
             <h1>Quit It</h1>
-            <div class="btn-container">
-                <a href="#">
-                    <span>
-                        <img class="add-btn" src="./add-circle-outline.svg" alt="">
-                    </span>
-                </a>
-            </div>
         </header>
-        
+
         <main class="main">
             <section class="card-container">
+                <article class="dashboard-card">
+                    <div class="logo-container">
+                        <img
+                            class="cig-logo"
+                            src="./cigarette-svgrepo-com.svg"
+                            alt=""
+                        />
+                    </div>
+                    <p class="card-category">Cigarettes Smoked Today</p>
+                    <p class="card-number">23</p>
+                </article>
+
+                <article class="dashboard-card">
+                    <div class="logo-container">
+                        <img class="cig-logo" src="./cash-outline.svg" alt="" />
+                    </div>
+                    <p class="card-category">Money Smoked Today</p>
+                    <p class="card-number">$10000.23</p>
+                </article>
+
+                <article class="dashboard-card">
+                    <div class="logo-container">
+                        <img
+                            class="cig-logo"
+                            src="./grave-illustration-3-svgrepo-com.svg"
+                            alt=""
+                        />
+                    </div>
+                    <p class="card-category">Life Lost Today</p>
+                    <p class="card-number">00:00:00</p>
+                </article>
+
+                <article class="dashboard-card">
+                    <p class="card-category">Cigarettes Smoked Today</p>
+                    <p class="card-number">23</p>
+                </article>
+
                 <article class="dashboard-card">
                     <p class="card-category">Cigarettes Smoked Today</p>
                     <p class="card-number">23</p>
@@ -33,6 +62,38 @@
             </section>
         </main>
 
-        <footer class="footer">stuff</footer>
+        <footer class="footer">
+            <div class="circle">
+                <a href="#">
+                    <span>
+                        <img
+                            id="add-btn"
+                            class="add-btn"
+                            src="./add-circle-outline.svg"
+                            alt=""
+                        />
+                    </span>
+                </a>
+            </div>
+        </footer>
+
+        <dialog id="log-cigarette" class="dialog">
+            <form class="log-form">
+                <label for="date-input">Date:</label>
+                <input type="date" name="date" id="date-input" required />
+
+                <label for="cig-input">Number Smoked</label>
+                <input
+                    type="number"
+                    name="num-of-cigs"
+                    id="cig-input"
+                    required
+                    min="0"
+                    max="100"
+                />
+
+                <button class="submit-btn">Add Entry</button>
+            </form>
+        </dialog>
     </body>
 </html>
