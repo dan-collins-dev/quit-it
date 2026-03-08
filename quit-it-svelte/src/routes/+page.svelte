@@ -3,7 +3,7 @@
 	import cigIconSrc from '$lib/assets/cigarette-svgrepo-com.svg';
 	import cashIconSrc from '$lib/assets/cash-outline.svg';
 	import graveIconSrc from '$lib/assets/grave-illustration-3-svgrepo-com.svg';
-    let {data} = $props();
+    // let {data} = $props();
 	
 </script>
 

@@ -28,16 +28,45 @@ triggerRouter.post("/", async (req, res) => {
     if (!req.body || !req.body.trigger) {
         return res.status(400).json("Bad");
     }
-    
+
     try {
         const triggers = await getAllTriggers();
-        const newTrigger = { id: v4(), trigger: req.body.trigger};
+        const newTrigger = { id: v4(), trigger: req.body.trigger };
         triggers.push(newTrigger);
         await fs.writeFile(triggersFilePath, JSON.stringify(triggers));
 
         res.status(201).json(newTrigger);
     } catch (error) {
-        console.error(error.message)
+        console.error(error.message);
+    }
+});
+
+triggerRouter.delete("/:id", async (req, res) => {
+    if (!req.params.id) {
+        return res.status(404).json({
+            error: "Post with that id does not exist",
+        });
+    }
+
+    try {
+        const id = req.params.id;
+        let triggers = await getAllTriggers();
+        const trigger = triggers.find((trigger) => trigger.id == id);
+
+        if (!trigger) {
+            return res.status(404).json({
+                error: `A trigger with the id, ${id}, does not exist`,
+            });
+        }
+
+        triggers = triggers.filter((trigger) => trigger.id !== id);
+        await fs.writeFile(triggersFilePath, JSON.stringify(triggers));
+
+        res.status(200).json({
+            message: "Record deleted",
+        });
+    } catch (error) {
+        console.error(error.message);
     }
 });
 

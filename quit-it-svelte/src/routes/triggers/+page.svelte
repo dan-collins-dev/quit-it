@@ -1,12 +1,75 @@
 <script>
-	import TriggerCard from '$lib/components/TriggerCard.svelte';
-	let { data } = $props();
-	console.log(data);
+	import TriggerCard from "$lib/components/TriggerCard.svelte";
+	import { onMount } from "svelte";
+
+	let triggers = $state([]);
+	let trigger = $state("");
+
+	async function getData() {
+		try {
+			const res = await fetch("http://localhost:7070/api/triggers");
+			const myTriggers = await res.json();
+			return myTriggers;
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	async function postData() {
+		try {
+			const res = await fetch("http://localhost:7070/api/triggers", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+
+				body: JSON.stringify({ trigger: trigger })
+			});
+
+			console.log({ trigger: trigger });
+
+			const newTrigger = await res.json();
+			trigger = "";
+
+			triggers.push(newTrigger);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	async function deleteData(id) {
+		try {
+			console.log(id)
+			const res = await fetch(`http://localhost:7070/api/triggers/${id}`, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json"
+				},
+			});
+
+			const data = await res.json();
+			console.log(data);
+
+			trigger = "";
+
+			triggers = triggers.filter(trigger => trigger.id !== id);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	onMount(async () => {
+		triggers = await getData();
+	});
 </script>
 
-{#each data.triggers as trigger (trigger.id)}
-	<TriggerCard trigger={trigger.trigger} />
-{/each}
+<div>
+	<input type="text" bind:value={trigger} name="" id="" />
+	<button onclick={postData}>Submit</button>
+	{#each triggers as trigger (trigger.id)}
+		<TriggerCard trigger={trigger.trigger} id={trigger.id} onDelete={deleteData} />
+	{/each}
+</div>
 
 <style>
 </style>

@@ -16,6 +16,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/logs", logRouter);
 
-app.use("/api/triggers", triggerRouter)
+app.use("/api/triggers", triggerRouter);
 
 app.listen(port, () => console.log(`Running on http://localhost:${port}`));
