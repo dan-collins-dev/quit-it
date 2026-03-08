@@ -3,7 +3,7 @@
 	import { onMount } from "svelte";
 
 	let triggers = $state([]);
-	let trigger = $state("");
+	let triggerInput = $state("");
 
 	async function getData() {
 		try {
@@ -23,15 +23,35 @@
 					"Content-Type": "application/json"
 				},
 
+				body: JSON.stringify({ trigger: triggerInput })
+			});
+
+			console.log({ trigger: triggerInput });
+
+			const newTrigger = await res.json();
+			triggerInput = "";
+
+			triggers.push(newTrigger);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	async function putData(id, trigger) {
+		try {
+			console.log(id)
+			const res = await fetch(`http://localhost:7070/api/triggers/${id}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json"
+				},
 				body: JSON.stringify({ trigger: trigger })
 			});
 
-			console.log({ trigger: trigger });
+			const data = await res.json();
+			console.log(data);
 
-			const newTrigger = await res.json();
-			trigger = "";
-
-			triggers.push(newTrigger);
+			triggers = [...triggers];
 		} catch (error) {
 			console.error(error);
 		}
@@ -50,7 +70,7 @@
 			const data = await res.json();
 			console.log(data);
 
-			trigger = "";
+			triggerInput = "";
 
 			triggers = triggers.filter(trigger => trigger.id !== id);
 		} catch (error) {
@@ -64,10 +84,10 @@
 </script>
 
 <div>
-	<input type="text" bind:value={trigger} name="" id="" />
+	<input type="text" bind:value={triggerInput} name="" id="" />
 	<button onclick={postData}>Submit</button>
 	{#each triggers as trigger (trigger.id)}
-		<TriggerCard trigger={trigger.trigger} id={trigger.id} onDelete={deleteData} />
+		<TriggerCard trigger={trigger.trigger} id={trigger.id} onDelete={deleteData} onEdit={putData} />
 	{/each}
 </div>
 

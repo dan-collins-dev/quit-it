@@ -24,6 +24,40 @@ triggerRouter.get("/", async (req, res) => {
     res.status(200).json(triggers);
 });
 
+triggerRouter.put("/:id", async (req, res) => {
+    if (!req.params.id) {
+        return res.status(404).json({
+            error: "Post with that id does not exist",
+        });
+    }
+
+    try {
+        const id = req.params.id;
+        const triggers = await getAllTriggers();
+        const trigger = triggers.find((trigger) => trigger.id == id);
+
+        if (!trigger) {
+            return res.status(404).json({
+                error: "trigger with that id does not exist",
+            });
+        }
+
+        if (!req.body.trigger) {
+            return res.status(400).json({
+                error: "Bad Request. Missing title or content",
+            });
+        }
+
+        trigger.trigger = req.body.trigger
+
+        await fs.writeFile(triggersFilePath, JSON.stringify(triggers));
+
+        res.status(200).json(trigger);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
 triggerRouter.post("/", async (req, res) => {
     if (!req.body || !req.body.trigger) {
         return res.status(400).json("Bad");
