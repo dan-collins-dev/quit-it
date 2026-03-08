@@ -1,50 +1,63 @@
-/**
- * @swagger
- * components:
- *  schemas:
- *    Log:
- *      type: Object
- *      required:
- *          - date
- *          - numOfCigarettes
- */
-
-"use strict";
-
 import express from "express";
+import path from "path"
+import { fileURLToPath } from "url";
+import fs from "fs/promises"
+import { v4 } from "uuid"
 
 const logRouter = express.Router();
 
-const smokerLogs = [
-    {
-        id: 1,
-        date: new Date(2026, 2, 1).getTime(), // March 1, 2026
-        numOfCigarettes: 15,
-    },
-    {
-        id: 2,
-        date: new Date(2026, 2, 2).getTime(), // March 2, 2026
-        numOfCigarettes: 12,
-    },
-    {
-        id: 3,
-        date: new Date(2026, 2, 3).getTime(), // March 3, 2026
-        numOfCigarettes: 18,
-    },
-    {
-        id: 4,
-        date: new Date(2026, 2, 4).getTime(), // March 4, 2026
-        numOfCigarettes: 10,
-    },
-    {
-        id: 5,
-        date: new Date(2026, 2, 5).getTime(), // March 5, 2026
-        numOfCigarettes: 23,
-    },
-];
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const logsFilePath = path.join(
+    __dirname,
+    "..",
+    "data",
+    "logs.json",
+);
+
+export function isNewDay(localTime, lastEntryDate) {
+    const utcTime = new Date(localTime);
+    const currentUtcDate = utcTime.toISOString().split('T')[0];
+    const lastUtcDate = new Date(lastEntryDate).toISOString().split('T')[0];
+    return currentUtcDate !== lastUtcDate;
+}
+
+async function getAllLogs() {
+    try {
+        const logData = await fs.readFile(logsFilePath);
+        return JSON.parse(logData)
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 logRouter.get("/", async (req, res) => {
-    res.status(200).json(smokerLogs);
+    const logs = await getAllLogs()
+    res.status(200).json(logs);
+});
+
+logRouter.post("/", async (req, res) => {
+    try {
+        const logs = JSON.parse(await fs.readFile(logsFilePath));
+        const newDay = isNewDay(new Date(), logs[logs.length -1 ].date)
+        
+        if (newDay) {
+            const newLog = { id: v4(), date: Date.now(), numOfCigs: 1}
+            logs.push(newLog);
+            fs.writeFile(logsFilePath, JSON.stringify(logs));
+            
+            return res.status(201).json(newLog)
+        } else {
+            const today = logs[logs.length - 1]
+            today.numOfCigs += 1;
+            fs.writeFile(logsFilePath, JSON.stringify(logs));
+            return res.status(200).json(today)
+        }
+        
+
+    } catch (error) {
+        res.status(400).json("Bad Request");
+    }
 });
 
 export default logRouter
