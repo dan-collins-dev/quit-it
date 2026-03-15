@@ -7,7 +7,7 @@
 
 	async function getData() {
 		try {
-			const res = await fetch("http://localhost:7070/api/triggers");
+			const res = await fetch("http://localhost:5150/api/triggers");
 			const myTriggers = await res.json();
 			return myTriggers;
 		} catch (error) {
@@ -17,16 +17,16 @@
 
 	async function postData() {
 		try {
-			const res = await fetch("http://localhost:7070/api/triggers", {
+			const res = await fetch("http://localhost:5150/api/triggers", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
 				},
 
-				body: JSON.stringify({ trigger: triggerInput })
+				body: JSON.stringify({ reason: triggerInput })
 			});
 
-			console.log({ trigger: triggerInput });
+			console.log({ reason: triggerInput });
 
 			const newTrigger = await res.json();
 			triggerInput = "";
@@ -40,12 +40,12 @@
 	async function putData(id, trigger) {
 		try {
 			console.log(id)
-			const res = await fetch(`http://localhost:7070/api/triggers/${id}`, {
+			const res = await fetch(`http://localhost:5150/api/triggers/${id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json"
 				},
-				body: JSON.stringify({ trigger: trigger })
+				body: JSON.stringify({ reason: trigger })
 			});
 
 			const data = await res.json();
@@ -60,7 +60,7 @@
 	async function deleteData(id) {
 		try {
 			console.log(id)
-			const res = await fetch(`http://localhost:7070/api/triggers/${id}`, {
+			const res = await fetch(`http://localhost:5150/api/triggers/${id}`, {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json"
@@ -87,7 +87,7 @@
 	<input type="text" bind:value={triggerInput} name="" id="" />
 	<button onclick={postData}>Submit</button>
 	{#each triggers as trigger (trigger.id)}
-		<TriggerCard trigger={trigger.trigger} id={trigger.id} onDelete={deleteData} onEdit={putData} />
+		<TriggerCard trigger={trigger.reason} id={trigger.id} onDelete={deleteData} onEdit={putData} />
 	{/each}
 </div>
 

@@ -1,29 +1,23 @@
-using QuitIt.API.Data;
 using QuitIt.API.Models;
-var builder = WebApplication.CreateBuilder(args);
+using QuitIt.API.Services;
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers(); 
+builder.Services.AddScoped<IFileService<Log>, LogsFileService>();
+builder.Services.AddScoped<IFileService<Trigger>, TriggersFileService>();
+builder.Services.AddCors(options =>
+{
+   options.AddDefaultPolicy(policy =>
+   {
+       policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+   });
+});
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-Utils.CreateDefaultData();
-
-app.MapGet("/api/logs", () => Utils.GetSmokerLogs());
-
-
-
+app.UseAuthorization();
+app.MapControllers();
+app.UseCors();
 app.Run();

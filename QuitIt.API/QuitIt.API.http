@@ -1,7 +1,26 @@
-@QuitIt.API_HostAddress = http://localhost:5150
 
-GET {{QuitIt.API_HostAddress}}/
-Accept: application/json
+
+GET http://localhost:5150/api/logs
+Content-Type: : application/json
 
 ###
-GET
+GET http://localhost:5150/api/logs/637df653-29ec-46d3-9100-48b22eb44c77
+
+###
+POST http://localhost:5150/api/logs
+Content-Type: application/json
+
+###
+GET http://localhost:5150/api/triggers/
+
+###
+GET http://localhost:5150/api/triggers/8436fc54-6ca4-4a8a-8127-fdcf3665ed96
+
+
+###
+POST http://localhost:5150/api/triggers
+Content-Type: application/json
+
+{
+    "reason": "Everything"
+}
