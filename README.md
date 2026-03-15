@@ -57,7 +57,7 @@ Once you have verified that the .NET SDK is installed as well as NodeJS, open Gi
 git clone https://github.com/dan-collins-dev/quit-it.git
 ```
 
-`cd` into the `Web-Api-Lab` directory and run the following:
+`cd` into the `quit-it` directory and run the following:
 
 ```bash
 dotnet clean
