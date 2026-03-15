@@ -4,24 +4,24 @@ using QuitIt.API.Models;
 
 namespace QuitIt.API.Services;
 
-public static class FileService
+public class LogsFileService : IFileService<Log>
 {
-    private static string FilePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "logs.json");
+    public static string FilePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "logs.json");
 
     private static JsonSerializerOptions Options = new()
     {
         PropertyNameCaseInsensitive = true
     };
 
-    public static async Task SaveLogs(List<Log> logs)
+    public async Task SaveData(List<Log> logs)
     {
         string stringifiedLogs = JsonSerializer.Serialize<List<Log>>(logs, Options);
         await File.WriteAllTextAsync(FilePath, stringifiedLogs);
     }
 
-    public static async Task<List<Log>> LoadLogs()
+    public List<Log> LoadData()
     {
-        var jsonString = await File.ReadAllTextAsync(FilePath);
+        var jsonString = File.ReadAllText(FilePath);
         return JsonSerializer.Deserialize<List<Log>>(jsonString, Options);
     }
 }

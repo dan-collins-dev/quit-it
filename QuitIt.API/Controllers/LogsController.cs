@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using QuitIt.API.Models;
 using QuitIt.API.Services;
@@ -10,42 +8,58 @@ namespace QuitIt.API.Controllers
     [ApiController]
     public class LogsController : ControllerBase
     {
+        private readonly IFileService<Log> _fileService;
+        private readonly List<Log> Logs;
+
+        public LogsController(IFileService<Log> fileService)
+        {
+            _fileService = fileService;
+            Logs = _fileService.LoadData();
+        }
 
         [HttpGet]
         public async Task<ActionResult> GetAllLogs()
         {
-            var logs = await FileService.LoadLogs();
-            return Ok(logs);
+            return Ok(Logs);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetLogById(Guid id)
+        {
+            Log? log = Logs.FirstOrDefault(log => log.Id == id);
+
+            if (log == null || Logs.Count == 0)
+            {
+                return BadRequest();
+            }
+
+            return Ok(log);
         }
 
         [HttpPost]
         public async Task<ActionResult<Log>> CreateNewLog()
         {
-            // load all logs
-            var logs = await FileService.LoadLogs();
-            var lastLog = logs.Last();
+            var lastLog = Logs.Last();
 
-            var isNewDay = await IsNewDay();
+            var isNewDay = await IsNewDay(Logs);
 
             if (isNewDay)
             {
                 Log newLog = new(Guid.NewGuid(), DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
-                logs.Add(newLog);
-                await FileService.SaveLogs(logs);
+                Logs.Add(newLog);
+                await _fileService.SaveData(Logs);
                 return Ok(newLog);
             }
             else
             {
                 lastLog.NumOfCigs += 1;
-                await FileService.SaveLogs(logs);
+                await _fileService.SaveData(Logs);
                 return Ok(lastLog);
             }
         }
 
-        public static async Task<bool> IsNewDay()
+        public async Task<bool> IsNewDay(List<Log> logs)
         {
-
-            List<Log> logs = await FileService.LoadLogs();
 
             Log lastLog = logs.Last();
 
