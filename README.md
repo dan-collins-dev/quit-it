@@ -75,7 +75,7 @@ dotnet run --project QuitIt.API/QuitIt.API.csproj
 After starting the server, open a new terminal and navigate back to the root of the project and run the following commands to start the Svelte app.
 
 ```bash
-cd quit-it-svelte
+cd QuitIt.Web
 npm install
 npm run dev
 ```
