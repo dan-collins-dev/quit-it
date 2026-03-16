@@ -79,3 +79,7 @@ cd QuitIt.Web
 npm install
 npm run dev
 ```
+
+
+## Known Issues
+- [ ] Need to fix comparison between log creation times to account for calendar days.
