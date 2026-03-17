@@ -2,6 +2,16 @@
     {
         "Id": "1c9c4cd8-a438-413e-a907-5e7595622a3f",
         "Date": 1773579143786,
-        "NumOfCigs": 1
+        "NumOfCigs": 23
+    },
+    {
+        "id": "92429da7-d97f-4ac2-88c0-ae35ab81a75b",
+        "date": 1773680891129,
+        "numOfCigs": 15
+    },
+    {
+        "id": "0a373487-e811-45a2-a0ed-752940ee560f",
+        "date": 1773774648482,
+        "numOfCigs": 1
     }
 ]
