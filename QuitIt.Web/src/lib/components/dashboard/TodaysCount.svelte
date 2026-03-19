@@ -2,28 +2,46 @@
 	import cigIconSrc from "$lib/assets/cigarette-svgrepo-com.svg";
 	let { lastLog } = $props();
 
-	let count = $derived(lastLog?.numOfCigs ?? 0);
-	let date = $derived(lastLog?.date);
+	let count = $derived.by(() => {
+		if (isSameUTCDay(lastLog?.date)) {
+			console.log(true)
+			return lastLog?.numOfCigs
+		}
+		else {
+			console.log(false)
+			return false
+		}
+	});
 
-	// function isSameUTCDay(lastLogDate) {
-	// 	const today = new Date();
-	// 	const lastDate = new Date(lastLogDate);
+	let date = $derived.by(() => {
+		if (isSameUTCDay(lastLog?.date)) {
+			const lastDate = new Date(lastLog?.date)
+			return lastDate.toDateString()
+		}
+		else {
+			return new Date().toDateString()
+		}
+	});
 
-	// 	return (
-	// 		today.getUTCFullYear() === lastDate.getUTCFullYear() &&
-	// 		today.getUTCMonth() === lastDate.getUTCMonth() &&
-	// 		today.getUTCDate() === lastDate.getUTCDate()
-	// 	);
-	// }
+	function isSameUTCDay(lastLogDate) {
+		const today = new Date();
+		const lastDate = new Date(lastLogDate);
+
+		return (
+			today.getUTCFullYear() === lastDate.getUTCFullYear() &&
+			today.getUTCMonth() === lastDate.getUTCMonth() &&
+			today.getUTCDate() === lastDate.getUTCDate()
+		);
+	}
 </script>
 
 <article class="dashboard-card">
-	<h2>{new Date(date).toDateString()}</h2>
+	<h2>{date}</h2>
 	<div class="logo-container">
 		<img class="cig-logo" src={cigIconSrc} alt="" />
 	</div>
 	<p class="card-category">Cigarettes Smoked Today</p>
-	<p class="card-number">{count}</p>
+	<p class="card-number">{count || 0}</p>
 </article>
 
 <style>
