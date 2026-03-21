@@ -10,7 +10,6 @@
 		} else {
 			isDisabled = true;
 		}
-        // document.getElementById("test").showModal();
 	}
 
 	function handleEdit(id) {
@@ -19,32 +18,39 @@
 	}
 </script>
 
-<section>
-	<!-- <h1>Triggers</h1>
-    <input type="text">
-    <button></button> -->
+<article>
 	<input type="text" bind:value={trigger} name="" disabled={isDisabled} />
-	{#if !isEditing}
-		<button onclick={() => toggleEditMode()}>Edit</button>
-		<button onclick={() => onDelete(id)}>Delete</button>
-	{:else}
-		<button onclick={() => handleEdit(id)}>Save</button>
-		<button onclick={() => toggleEditMode()}>Cancel</button>
-	{/if}
-    <dialog id="test">
-        <h1>hi</h1>
-    </dialog>
-</section>
+	<div class="btn-container">
+		{#if !isEditing}
+			<button onclick={() => toggleEditMode()}>Edit</button>
+			<button onclick={() => onDelete(id)}>Delete</button>
+		{:else}
+			<button onclick={() => handleEdit(id)}>Save</button>
+			<button onclick={() => toggleEditMode()}>Cancel</button>
+		{/if}
+	</div>
+</article>
 
 <style>
-	section {
-		display: grid;
-		grid-template-columns: 1fr;
-		color: black;
+	article {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 		background-color: #fff;
 		border-radius: 5px;
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 		padding: 1rem;
 		margin: 0.75rem;
+	}
+
+	input {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.btn-container {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 	}
 </style>

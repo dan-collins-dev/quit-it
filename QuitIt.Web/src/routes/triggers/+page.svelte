@@ -1,5 +1,5 @@
 <script>
-	import TriggerCard from "$lib/components/TriggerCard.svelte";
+	import TriggerCard from "$lib/components/triggers/TriggerCard.svelte";
 	import { onMount } from "svelte";
 
 	let triggers = $state([]);
