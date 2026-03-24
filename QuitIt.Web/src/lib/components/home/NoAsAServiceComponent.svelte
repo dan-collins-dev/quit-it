@@ -16,7 +16,7 @@
 </script>
 
 <article>
-	<h2>Reason to Not Smoke</h2>
+	<h2>No as a Service Reason</h2>
 	<p>{reasonObject.reason}</p>
 </article>
 
