@@ -22,12 +22,6 @@
 <section class="card-container">
 	<TodaysCount {lastLog} />
 	<StreakCard {lastLog} />
-
-	<!-- <DashboardCard iconSrc={cigIconSrc} label="Cigarettes Smoked Today" count="23" />
-	<DashboardCard iconSrc={cashIconSrc} label="Cigarettes Smoked Today" count="$10000.23" />
-	<DashboardCard iconSrc={graveIconSrc} label="Cigarettes Smoked Today" count="00:00:00" />
-	<DashboardCard iconSrc={cigIconSrc} label="Cigarettes Smoked Today" count="23" />
-	<DashboardCard iconSrc={cigIconSrc} label="Cigarettes Smoked Today" count="23" /> -->
 </section>
 
 <style>

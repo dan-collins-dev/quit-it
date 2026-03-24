@@ -27,15 +27,12 @@
 </script>
 
 <dialog bind:this={dialog}>
-	<button onclick={addCigarette}>Yes</button>
 	<p>Do you really want to smoke that? {isOpen}</p>
+	<button onclick={addCigarette}>Yes</button>
 	<button onclick={() => close()}>No</button>
 </dialog>
 
 <style>
-	dialog {
-		z-index: 10000;
-	}
 	p {
 		color: black;
 	}

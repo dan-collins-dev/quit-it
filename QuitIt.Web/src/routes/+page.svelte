@@ -1,20 +1,11 @@
-<!-- <script>
-	import NoComponent from "$lib/components/home/NoComponent.svelte";
-
-</script>
-<NoComponent /> -->
-
 <script>
 	import Chart from "$lib/components/home/Chart.svelte";
     import NoComponent from "$lib/components/home/NoComponent.svelte";
-
-	// let isModalOpen = $state(false)
-	// function onOpenModal() {
-	// 	isModalOpen = true;
-	// }
+	import Reason from "$lib/components/home/Reason.svelte";
 </script>
 
 <NoComponent />
+<Reason />
 <Chart />
 
 

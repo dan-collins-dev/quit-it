@@ -81,5 +81,6 @@ npm run dev
 ```
 
 
-## Known Issues
-- [ ] Need to fix comparison between log creation times to account for calendar days.
+## TODOS
+- [ ] Need to update post creation to account for user local time. I think it makes more sense for this project rather than going with the preferred UTC date and displaying the local time on the front-end.
+- [ ] Update unit test for the above

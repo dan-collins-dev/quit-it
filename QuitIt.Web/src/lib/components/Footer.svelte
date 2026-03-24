@@ -4,10 +4,13 @@
 	import triggerIconSrc from "$lib/assets/vulnerability-svgrepo-com.svg";
 	import dashboardIconSrc from "$lib/assets/knowledge-graph-dashboard-svgrepo-com.svg";
 	import AddButton from "./home/AddButton.svelte";
-	import AddCigaretteModal from "./AddCigaretteModal.svelte";
+	import AddCigaretteModal from "./home/AddCigaretteModal.svelte";
 
+	import { page } from "$app/stores";
 
-	let modal;
+	let currentPageName = $derived($page.url.pathname.split("/").filter(Boolean).pop() || "Home");
+
+	let modal = $state(null);
 
 	function openModal() {
 		modal.open();
@@ -30,8 +33,10 @@
 		<p>Dashboard</p>
 	</a>
 
-	<AddButton onOpen={openModal} />
-	<AddCigaretteModal bind:this={modal}/>
+	{#if currentPageName == "Home"}
+		<AddButton onOpen={openModal} />
+		<AddCigaretteModal bind:this={modal} />
+	{/if}
 </footer>
 
 <style>

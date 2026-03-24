@@ -2,7 +2,6 @@
 	import iconSrc from "$lib/assets/logo-no-smoking.svg";
 	import { page } from "$app/stores";
 
-	// let pageName = $state("");
 	let currentPageName = $derived($page.url.pathname.split("/").filter(Boolean).pop() || "Home");
 
 	function capitalizeFirstLetter(name) {
