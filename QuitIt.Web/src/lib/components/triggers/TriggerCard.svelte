@@ -53,21 +53,23 @@
 	button {
 		border: none;
 		padding: 1rem 2rem;
-		border-radius: 5px;	
+		border-radius: 5px;
 	}
 
 	.save-btn {
 		background-color: green;
 		color: white;
+		background: linear-gradient(180deg, #6f8000, #003600);
 	}
 
 	.edit-btn {
-		background: linear-gradient(180deg, #0050ff, #070b47);
+		background: linear-gradient(180deg, #0050ff, #0a0f60);
 		color: white;
 	}
 
-	.delete-btn, .cancel-btn {
-		background: linear-gradient(180deg, red, rgb(125, 0, 0));
+	.delete-btn,
+	.cancel-btn {
+		background: linear-gradient(180deg, #ff0000, rgb(143, 0, 0));
 		color: white;
 	}
 </style>

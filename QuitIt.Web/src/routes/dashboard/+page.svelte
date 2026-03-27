@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import TodaysCount from "$lib/components/dashboard/TodaysCount.svelte";
 	import StreakCard from "$lib/components/dashboard/StreakCard.svelte";
+	import MoneySmokedCard from "$lib/components/dashboard/MoneySmokedCard.svelte";
 
 	let logs = $state([]);
 
@@ -22,6 +23,7 @@
 <section class="card-container">
 	<TodaysCount {lastLog} />
 	<StreakCard {lastLog} />
+	<MoneySmokedCard {lastLog} />
 </section>
 
 <style>

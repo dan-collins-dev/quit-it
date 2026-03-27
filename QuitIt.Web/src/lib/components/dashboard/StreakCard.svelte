@@ -16,10 +16,10 @@
 </script>
 
 <article class="dashboard-card">
+	<h2>Current Streak</h2>
 	<div class="logo-container">
 		<img class="cig-logo" src={trophyIconSrc} alt="" />
 	</div>
-	<p class="card-category">Current Streak</p>
 	<p class="card-number">{utcDaysSince(date)}</p>
 	<p>Last cigarette smoked on {new Date(date).toLocaleDateString()}</p>
 </article>
@@ -42,7 +42,8 @@
 		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 	}
 
-	p {
+	p,
+	h2 {
 		color: black;
 	}
 </style>

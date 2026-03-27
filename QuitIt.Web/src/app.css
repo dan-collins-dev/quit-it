@@ -3,7 +3,6 @@
 	--good-btn-color: #7678ed;
 	--warning-btn-color: #ff7f11;
 	--primary-bg-color: #3d348b;
-	/* color-scheme: light dark; */
 }
 
 *:not(dialog) {
@@ -127,6 +126,19 @@ body {
 .log-form {
 	display: flex;
 	flex-direction: column;
+}
+
+input[type="text"] {
+	padding: 1rem;
+	border-bottom: 2px solid black;
+	border-radius: 1rem 1rem 8px transparent 0;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	background: #f9fafb;
+	font-size: 1rem;
+	outline: none;
+	appearance: none;
 }
 
 @media (min-width: 768px) {

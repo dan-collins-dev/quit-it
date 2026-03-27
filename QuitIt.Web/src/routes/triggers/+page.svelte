@@ -102,7 +102,7 @@
 		justify-content: space-between;
 		background-color: #fff;
 		border-radius: 5px;
-		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		box-shadow: 0 4px 8px 0 #00000033;
 		padding: 1rem;
 		margin: 0.75rem;
 		color: black;
@@ -113,21 +113,7 @@
 		border: none;
 		padding: 1rem 2rem;
 		border-radius: 5px;
-		background: linear-gradient(180deg, rgb(111, 128, 0), rgb(1, 42, 1));
+		background: linear-gradient(180deg, #6f8000, #003600);
 		color: white;
-	}
-
-	input[type="text"] {
-		text-decoration: dashed;
-		/* border: none; */
-		padding: 0.5rem 1rem;
-		border: none;
-	}
-
-	input[type="text"]:active {
-		text-decoration: underlinewd;
-		/* border: none; */
-		padding: 0.5rem 1rem;
-		border: none;
 	}
 </style>
