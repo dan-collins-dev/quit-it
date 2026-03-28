@@ -66,7 +66,7 @@ namespace QuitIt.API.Controllers
             DateTimeOffset utcNowOffset = DateTime.UtcNow;
             DateTimeOffset lastLogTime = DateTimeOffset.FromUnixTimeMilliseconds(lastLog.Date);
 
-            return (lastLogTime.AddDays(1) < utcNowOffset) ? true : false;
+            return (lastLogTime.UtcDateTime.Date < utcNowOffset.UtcDateTime.Date) ? true : false;
         }
     }
 }

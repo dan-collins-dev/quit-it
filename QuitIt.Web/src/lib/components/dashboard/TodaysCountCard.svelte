@@ -1,13 +1,20 @@
 <script>
 	import { onMount } from "svelte";
-    import cigIconSrc from "$lib/assets/cash-outline.svg";
+	import cigIconSrc from "$lib/assets/cigarette-svgrepo-com.svg";
 
-    const avgCigPrice = 0.28;
-
-    let loaded = $state(null);
+	let loaded = $state(null);
 	let error = $state(null);
 	let data = $state([]);
 	let lastLog = $derived(data[data.length - 1]);
+
+	let date = $derived.by(() => {
+		if (isSameUTCDay(lastLog?.date)) {
+			const lastDate = new Date(lastLog?.date);
+			return lastDate.toDateString();
+		} else {
+			return new Date().toDateString();
+		}
+	});
 
 	let count = $derived.by(() => {
 		if (isSameUTCDay(lastLog?.date)) {
@@ -17,25 +24,7 @@
 		}
 	});
 
-	let amountSmoked = $derived.by(() => {
-		if (count != 0) {
-			return (count * avgCigPrice).toFixed(2);
-		} else {
-			return (0.0).toFixed(2);
-		}
-	});
-
-    async function getLogs() {
-        try {
-            const res = await fetch("http://localhost:5150/api/logs");
-            const data = await res.json()
-            return data;
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-	function isSameUTCDay(lastLogDate) {
+    function isSameUTCDay(lastLogDate) {
 		const today = new Date();
 		const lastDate = new Date(lastLogDate);
 
@@ -46,33 +35,42 @@
 		);
 	}
 
-    onMount(async () => {
-        data = await getLogs();
-		loaded = true
-    })
+	async function getLogs() {
+		try {
+			const res = await fetch("http://localhost:5150/api/logs");
+			const data = await res.json();
+			return data;
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	onMount(async () => {
+		try {
+			data = await getLogs();
+			loaded = true;
+		} catch (err) {
+			error = err.message;
+		}
+	});
 </script>
 
 {#if loaded}
 	<article class="dashboard-card">
-		<h2>Money Smoked Today</h2>
+		<h2>{date}</h2>
 		<div class="logo-container">
 			<img class="cig-logo" src={cigIconSrc} alt="" />
 		</div>
-		<p class="card-number">${amountSmoked}</p>
+		<p class="card-category">Cigarettes Smoked Today</p>
+		<p class="card-number">{count || 0}</p>
 	</article>
 {:else if !loaded}
 	<article class="dashboard-card">
-		<h2>Loading money data</h2>
-		<div class="logo-container">
-			<img class="cig-logo" src={cigIconSrc} alt="" />
-		</div>
+		<h2>Loading Count Data...</h2>
 	</article>
 {:else}
 	<article class="dashboard-card">
 		<h2>{error}</h2>
-		<div class="logo-container">
-			<img class="cig-logo" src={cigIconSrc} alt="" />
-		</div>
 	</article>
 {/if}
 

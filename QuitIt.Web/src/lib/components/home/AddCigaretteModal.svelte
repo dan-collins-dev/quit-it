@@ -56,8 +56,6 @@
 	}
 
 	.cancel-btn {
-		
-
 		background-color: green;
 		color: white;
 		background: linear-gradient(180deg, #6f8000, #003600);

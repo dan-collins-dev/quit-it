@@ -1,8 +1,21 @@
 <script>
+	import { onMount } from "svelte";
 	import trophyIconSrc from "$lib/assets/trophy-svgrepo-com.svg";
 
-	let { lastLog } = $props();
-	let date = $derived(lastLog?.date);
+	let loaded = $state(null);
+	let error = $state(null);
+	let data = $state([]);
+	let lastLog = $derived(data[data.length - 1]);
+
+	async function getLogs() {
+		try {
+			const res = await fetch("http://localhost:5150/api/logs");
+			const data = await res.json();
+			return data;
+		} catch (error) {
+			console.error(error);
+		}
+	}
 
 	function utcDaysSince(timestampMs) {
 		const now = new Date();
@@ -13,16 +26,35 @@
 
 		return Math.floor((todayUTC - lastUTC) / 86400000);
 	}
+
+	onMount(async () => {
+		try {
+			data = await getLogs();
+			loaded = true
+		} catch (err) {
+			error = err.message
+		}
+	});
 </script>
 
-<article class="dashboard-card">
-	<h2>Current Streak</h2>
-	<div class="logo-container">
-		<img class="cig-logo" src={trophyIconSrc} alt="" />
-	</div>
-	<p class="card-number">{utcDaysSince(date)}</p>
-	<p>Last cigarette smoked on {new Date(date).toLocaleDateString()}</p>
-</article>
+{#if loaded}
+	<article class="dashboard-card">
+		<h2>Current Streak</h2>
+		<div class="logo-container">
+			<img class="cig-logo" src={trophyIconSrc} alt="" />
+		</div>
+		<p class="card-number">{utcDaysSince(lastLog?.date)}</p>
+		<p>Last cigarette smoked on {new Date(lastLog?.date).toLocaleDateString()}</p>
+	</article>
+{:else if loaded === false}
+	<article class="dashboard-card">
+		<h2>Loading streak data...</h2>
+	</article>
+{:else}
+	<article class="dashboard-card">
+		<h2>{error}</h2>
+	</article>
+{/if}
 
 <style>
 	article {
@@ -45,5 +77,6 @@
 	p,
 	h2 {
 		color: black;
+		padding-bottom: 1rem;
 	}
 </style>

@@ -90,9 +90,11 @@
 		<AddTriggerInput bind:value={triggerInput} />
 		<button onclick={postData}>Submit</button>
 	</article>
-	{#each triggers as trigger (trigger.id)}
-		<TriggerCard trigger={trigger.reason} id={trigger.id} onDelete={deleteData} onEdit={putData} />
-	{/each}
+	<div class="trigger-container">
+		{#each triggers as trigger (trigger.id)}
+			<TriggerCard trigger={trigger.reason} id={trigger.id} onDelete={deleteData} onEdit={putData} />
+		{/each}
+	</div>
 </div>
 
 <style>
@@ -115,5 +117,10 @@
 		border-radius: 5px;
 		background: linear-gradient(180deg, #6f8000, #003600);
 		color: white;
+	}
+
+	.trigger-container {
+		display: grid;
+		grid-template-columns: 1fr;
 	}
 </style>
