@@ -1,14 +1,1 @@
-[
-    {
-        "Id": "aa557353-abfd-43b7-bccf-feebb9248e54",
-        "Reason": "TEST"
-    },
-    {
-        "Id": "5c33c9c0-f932-45b6-aa2e-3f95db0da957",
-        "Reason": "Interruptions"
-    },
-    {
-        "Id": "d58ceb10-d749-423d-ae6b-5a1cbe9d2c95",
-        "Reason": "Fires"
-    }
-]
+[{"Id":"aa557353-abfd-43b7-bccf-feebb9248e54","Reason":"TEST"},{"Id":"5c33c9c0-f932-45b6-aa2e-3f95db0da957","Reason":"Interruptions"},{"Id":"298f671e-3b19-4063-bdee-e44987472977","Reason":"Fires"}]
