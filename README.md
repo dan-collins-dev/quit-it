@@ -6,19 +6,22 @@ Quit It is a web app that I built as a proof of concept for a smoking cessation 
 
 ## Capstone Related Questions
 
-This section will be updated as needed until the deadline of April 10th at 12pm EST 
-
 #### What did I learn from this project?
 
-Will fill this out before deadline
+I learned more about the C# language as well as Svelte and SvelteKit.
 
 #### What did I learn from this course?
 
-Will fill this out before deadline
+I think learned most about SOLID principles. DRY is a concept that I already understand and did my best to implement in this project.
 
 #### What would I have done differently
 
-Will fill this out before deadline
+There are plenty of items that could have been addressed differently. 
+
+- My CRUD functionality for "triggers" is very simple. I would have liked to add more properties to this object such as a property for how intense the trigger is. 
+- "Logs" are create and read only. The thought behind this was that it prevents the user from cheating. It may be wise to consider an accidental add that can be edited.
+- There's still plenty of work for code clean-up that I'm not sure I'll have the time to accomplish before the deadline.
+- I know that my limited knowledge of Svelte and SvelteKit prevents me from writing better code to handle requests. If I had time to explore it, I would have built a proxy api.
 
 ## How To Run
 
@@ -57,7 +60,7 @@ Once you have verified that the .NET SDK is installed as well as NodeJS, open Gi
 git clone https://github.com/dan-collins-dev/quit-it.git
 ```
 
-`cd` into the `quit-it` directory and run the following:
+`cd` into the `Web-Api-Lab` directory and run the following:
 
 ```bash
 dotnet clean
@@ -75,12 +78,14 @@ dotnet run --project QuitIt.API/QuitIt.API.csproj
 After starting the server, open a new terminal and navigate back to the root of the project and run the following commands to start the Svelte app.
 
 ```bash
-cd QuitIt.Web
+cd quit-it-svelte
 npm install
 npm run dev
 ```
 
 
-## TODOS
-- [ ] Need to update post creation to account for user local time. I think it makes more sense for this project rather than going with the preferred UTC date and displaying the local time on the front-end.
-- [ ] Update unit test for the above
+## Resources Used
+
+All icons were sourced from [ionicons](https://ionic.io/ionicons) and [SVG Repo](https://www.svgrepo.com/). 
+
+Special thanks to [LiminalElenyx](https://github.com/LiminalElenyx) for contributing to the [reasons-to-quit-smoking-api](https://github.com/dan-collins-dev/reasons-to-quit-smoking-api).
