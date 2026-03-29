@@ -1,5 +1,4 @@
 <script>
-
 </script>
 
 <article class="dashboard-card">
@@ -11,10 +10,10 @@
 			srcset=""
 		/>
 	</div>
-	<p class="citation">Pulled from the <a href="https://www.cdc.gov/tobacco/about/cigarettes-and-cancer.html">CDC</a></p>
+	<p class="citation">
+		Pulled from the <a href="https://www.cdc.gov/tobacco/about/cigarettes-and-cancer.html">CDC</a>
+	</p>
 </article>
-
-
 
 <style>
 	p {
@@ -32,5 +31,8 @@
 	img {
 		width: 100%;
 	}
-</style>
 
+	article {
+		flex: 1;
+	}
+</style>

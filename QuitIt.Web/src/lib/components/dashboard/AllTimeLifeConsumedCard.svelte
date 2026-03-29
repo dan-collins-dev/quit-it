@@ -30,7 +30,7 @@
 </script>
 
 <article class="dashboard-card">
-	<h2>Life Lost (Last 7 Days)</h2>
+	<h2>Life Lost (All Time)</h2>
 	<div class="logo-container">
 		<img class="card-logo" src={graveIconSrc} alt="" />
 	</div>

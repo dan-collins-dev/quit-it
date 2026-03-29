@@ -20,4 +20,8 @@
 	h2 {
 		color: black;
 	}
+
+	article {
+		flex: 1
+	}
 </style>

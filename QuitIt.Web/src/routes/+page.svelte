@@ -1,13 +1,11 @@
 <script>
-	import CancerLocationsCard from "../lib/components/home/CancerLocationsCard.svelte";
-	
-	import Reason from "$lib/components/home/Reason.svelte";
-
-	import {fade} from "svelte/transition"
-
+	import { fade } from "svelte/transition";
 	import { onMount } from "svelte";
+	
+	import CancerLocationsCard from "../lib/components/home/CancerLocationsCard.svelte";
+	import Reason from "$lib/components/home/Reason.svelte";
 	import StreakCard from "$lib/components/dashboard/StreakCard.svelte";
-
+	import QuittingBenefits from "$lib/components/home/QuittingBenefits.svelte";
 
 	let loaded = $state(null);
 	let error = $state(null);
@@ -28,13 +26,10 @@
 			reason = await getReasonNotToSmoke();
 			logs = await getData();
 			loaded = true;
-			// onLoaded();
 		} catch (err) {
 			error = err.message;
 		}
 	});
-
-
 
 	let logs = $state([]);
 
@@ -44,13 +39,11 @@
 		try {
 			const res = await fetch("http://localhost:5150/api/logs");
 			const data = await res.json();
-			return data
+			return data;
 		} catch (error) {
 			console.log(error);
 		}
 	}
-
-	// onMount(getData);
 </script>
 
 <svelte:head>
@@ -58,23 +51,38 @@
 </svelte:head>
 
 {#if loaded}
-	<div in:fade={{duration: 300}}>
-		<Reason {reason}/>
-		<StreakCard {lastLog}/>
-		<CancerLocationsCard/>
+	<div in:fade={{ duration: 300 }}>
+		<div class="flex-container">
+			<Reason {reason} />
+			<StreakCard {lastLog} />
+		</div>
+
+		<div class="flex-container">
+			<CancerLocationsCard />
+			<QuittingBenefits />
+		</div>
 	</div>
 {:else if !loaded}
-	<article >
+	<article>
 		<h2>Loading page...</h2>
-		<div class="logo-container">
-			<!-- <img class="cig-logo" src={cigIconSrc} alt="" /> -->
-		</div>
 	</article>
 {:else}
 	<article>
 		<h2>{error}</h2>
-		<div class="logo-container">
-			<!-- <img class="cig-logo" src={cigIconSrc} alt="" /> -->
-		</div>
 	</article>
 {/if}
+
+
+<style>
+	.flex-container {
+		display: flex;
+		flex-direction: column;
+	}
+
+	@media (min-width: 768px) {
+		.flex-container {
+			flex-direction: row;
+			justify-content: stretch;
+		}
+	}
+</style>

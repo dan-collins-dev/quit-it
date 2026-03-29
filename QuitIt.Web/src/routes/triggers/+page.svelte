@@ -51,7 +51,7 @@
 				body: JSON.stringify({ reason: trigger })
 			});
 
-			const data = await res.json();
+			await res.json();
 
 			const updatedTriggerIndex = triggers.findIndex((trigger) => trigger.id == id);
 			triggers.splice(updatedTriggerIndex, 0);
@@ -62,7 +62,6 @@
 
 	async function deleteData(id) {
 		try {
-			// console.log(id);
 			const res = await fetch(`http://localhost:5150/api/triggers/${id}`, {
 				method: "DELETE",
 				headers: {
@@ -70,9 +69,7 @@
 				}
 			});
 
-			const data = await res.json();
-			// console.log(data);
-
+			await res.json();
 			triggerInput = "";
 
 			triggers = triggers.filter((trigger) => trigger.id !== id);
@@ -115,5 +112,17 @@
 	.trigger-container {
 		display: grid;
 		grid-template-columns: 1fr;
+	}
+
+	@media (min-width: 768px) {
+		.trigger-container {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.trigger-container {
+			grid-template-columns: repeat(3, 1fr);
+		}
 	}
 </style>

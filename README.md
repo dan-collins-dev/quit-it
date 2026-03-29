@@ -22,6 +22,8 @@ There are plenty of items that could have been addressed differently.
 - "Logs" are create and read only. The thought behind this was that it prevents the user from cheating. It may be wise to consider an accidental add that can be edited.
 - There's still plenty of work for code clean-up that I'm not sure I'll have the time to accomplish before the deadline.
 - I know that my limited knowledge of Svelte and SvelteKit prevents me from writing better code to handle requests. If I had time to explore it, I would have built a proxy api.
+- I wanted to include charts built with ChartJS for more insights and display of historical data
+
 
 ## How To Run
 

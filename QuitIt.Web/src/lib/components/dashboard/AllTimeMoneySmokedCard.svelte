@@ -23,7 +23,7 @@
 </script>
 
 <article class="dashboard-card">
-	<h2>Money Smoked (Last 7 Days)</h2>
+	<h2>Money Smoked (All Time)</h2>
 	<div class="logo-container">
 		<img class="card-logo" src={moneyIconSrc} alt="" />
 	</div>
