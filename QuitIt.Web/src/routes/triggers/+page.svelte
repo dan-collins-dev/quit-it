@@ -17,6 +17,8 @@
 	}
 
 	async function postData() {
+		if (triggerInput === "") return;
+
 		try {
 			const res = await fetch("http://localhost:5150/api/triggers", {
 				method: "POST",
@@ -27,7 +29,7 @@
 				body: JSON.stringify({ reason: triggerInput })
 			});
 
-			console.log({ reason: triggerInput });
+			// console.log({ reason: triggerInput });
 
 			const newTrigger = await res.json();
 			triggerInput = "";
@@ -40,7 +42,7 @@
 
 	async function putData(id, trigger) {
 		try {
-			console.log(id);
+			// console.log(id);
 			const res = await fetch(`http://localhost:5150/api/triggers/${id}`, {
 				method: "PUT",
 				headers: {
@@ -50,9 +52,9 @@
 			});
 
 			const data = await res.json();
-			console.log(data);
 
-			triggers = [...triggers];
+			const updatedTriggerIndex = triggers.findIndex((trigger) => trigger.id == id);
+			triggers.splice(updatedTriggerIndex, 0);
 		} catch (error) {
 			console.error(error);
 		}
@@ -60,7 +62,7 @@
 
 	async function deleteData(id) {
 		try {
-			console.log(id);
+			// console.log(id);
 			const res = await fetch(`http://localhost:5150/api/triggers/${id}`, {
 				method: "DELETE",
 				headers: {
@@ -69,7 +71,7 @@
 			});
 
 			const data = await res.json();
-			console.log(data);
+			// console.log(data);
 
 			triggerInput = "";
 
@@ -84,32 +86,23 @@
 	});
 </script>
 
-<div>
-	<article>
-		<h2>Manage Your Triggers</h2>
-		<AddTriggerInput bind:value={triggerInput} />
-		<button onclick={postData}>Submit</button>
-	</article>
-	<div class="trigger-container">
-		{#each triggers as trigger (trigger.id)}
-			<TriggerCard trigger={trigger.reason} id={trigger.id} onDelete={deleteData} onEdit={putData} />
-		{/each}
-	</div>
+<svelte:head>
+	<title>Quit It | Triggers</title>
+</svelte:head>
+
+<article class="trigger-card">
+	<h2>Manage Your Triggers</h2>
+	<AddTriggerInput bind:value={triggerInput} />
+	<button onclick={postData}>Submit</button>
+</article>
+<div class="trigger-container">
+	{#each triggers as trigger (trigger.id)}
+		<TriggerCard trigger={trigger.reason} id={trigger.id} onDelete={deleteData} onEdit={putData} />
+	{/each}
 </div>
 
 <style>
-	article {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		background-color: #fff;
-		border-radius: 5px;
-		box-shadow: 0 4px 8px 0 #00000033;
-		padding: 1rem;
-		margin: 0.75rem;
-		color: black;
-		gap: 1rem;
-	}
+
 
 	button {
 		border: none;

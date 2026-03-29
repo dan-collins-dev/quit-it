@@ -19,17 +19,17 @@
 
 <footer class="footer">
 	<a href={resolve("/triggers")} class="logo-container nav-btn">
-		<img class="logo" src={triggerIconSrc} alt="" />
+		<img class="page-logo" src={triggerIconSrc} alt="" />
 		<p>Triggers</p>
 	</a>
 
 	<a href={resolve("/")} class="logo-container nav-btn">
-		<img class="logo" src={homeIconSrc} alt="" />
+		<img class="page-logo" src={homeIconSrc} alt="" />
 		<p>Home</p>
 	</a>
 
 	<a href={resolve("/dashboard")} class="logo-container nav-btn">
-		<img class="logo" src={dashboardIconSrc} alt="" />
+		<img class="page-logo" src={dashboardIconSrc} alt="" />
 		<p>Dashboard</p>
 	</a>
 

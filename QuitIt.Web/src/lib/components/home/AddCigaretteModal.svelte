@@ -1,5 +1,6 @@
 <script>
-	import stopIcon from "$lib/assets/stop-palm-svgrepo-com.svg"
+	import stopIcon from "$lib/assets/stop-palm-svgrepo-com.svg";
+
 	async function addCigarette() {
 		try {
 			const res = await fetch("http://localhost:5150/api/logs", {
@@ -22,32 +23,37 @@
 	}
 
 	function close() {
-		dialog.style.display = "none"
+		dialog.style.display = "none";
 		dialog.close();
 	}
 </script>
 
 <dialog bind:this={dialog}>
-	<h2>Do you really want to smoke that?</h2>
-	<div class="logo-container">
-		<img class="logo" src={stopIcon} alt="" srcset="">
-	</div>
-	
-	<button class="confirm-btn" onclick={addCigarette}>Yes</button>
-	<button class="cancel-btn" onclick={() => close()}>No</button>
+
+		<div class="logo-container">
+			<img class="card-logo" src={stopIcon} alt="" srcset="" />
+		</div>
+		<h2>Do you really want to smoke that?</h2>
+
+		<button class="confirm-btn" onclick={addCigarette}>Yes</button>
+		<button class="cancel-btn" onclick={() => close()}>No</button>
+
 </dialog>
 
 <style>
-	img {
-		filter: invert(0);
-	}
-
 	dialog {
 		border: none;
 		display: none;
+		max-width: 80%;
 		flex-direction: column;
 		gap: 1rem;
 		align-items: center;
+		border-radius: 5px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	}
+
+	dialog::backdrop {
+		background-color: rgba(0, 0, 0, 0.5);
 	}
 
 	.confirm-btn {
@@ -66,7 +72,7 @@
 		border: none;
 		padding: 1rem 2rem;
 		border-radius: 5px;
-		width: 100%
+		width: 100%;
 	}
 
 	h2 {

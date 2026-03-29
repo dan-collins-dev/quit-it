@@ -1,40 +1,21 @@
 <script>
-	import { onMount } from "svelte";
+	import stopIconSrc from "$lib/assets/stop-urgent-svgrepo-com.svg";
 
-	let reason = $state(null);
-
-	async function getReason() {
-		try {
-			const res = await fetch("https://reasons-to-quit-smoking-api.vercel.app/api/reasons");
-			const data = await res.json();
-			reason = data;
-		} catch (error) {
-			console.error(error.message);
-		}
-	}
-
-	onMount(async () => getReason());
+	let { reason } = $props();
 </script>
 
-<article>
-	<h2>Reason to Not Smoke</h2>
+<article class="dashboard-card">
+	<div class="logo-container">
+		<img class="card-logo" src={stopIconSrc} alt="" />
+	</div>
+	<h2>Don't do it!</h2>
 	<p>{reason}</p>
+	<p class="citation">
+		Special thanks to <a href="https://github.com/LiminalElenyx">LiminalElenyx</a> for contributing
+	</p>
 </article>
 
 <style>
-	article {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		background-color: #fff;
-		border-radius: 5px;
-		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-		padding: 1rem;
-		margin: 0.75rem;
-		align-items: center;
-		gap: 1rem
-	}
-
 	p,
 	h2 {
 		color: black;

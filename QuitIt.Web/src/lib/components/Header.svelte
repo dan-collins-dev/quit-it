@@ -14,15 +14,18 @@
 
 <header class="header">
 	<div class="logo-container">
-		<img class="logo" src={iconSrc} alt="" />
+		<img class="page-logo" src={iconSrc} alt="" />
 	</div>
 	<h1>Quit It</h1>
 	<p>{capitalizeFirstLetter(currentPageName)}</p>
 </header>
 
 <style>
+	h1 {
+		color: white;
+	}
 	p {
 		margin-left: auto;
-		font-size: xx-large;
+		font-size: x-large;
 	}
 </style>

@@ -1,5 +1,7 @@
 <script>
+	import { slide } from "svelte/transition";
 	let { trigger, id, onDelete, onEdit } = $props();
+
 	let isEditing = $state(false);
 	let isDisabled = $state(true);
 
@@ -18,7 +20,7 @@
 	}
 </script>
 
-<article>
+<article in:slide={{ duration: 300, axis: "y" }} out:slide={{ duration: 300, axis: "x" }}>
 	<input type="text" bind:value={trigger} name="" disabled={isDisabled} />
 	<div class="btn-container">
 		{#if !isEditing}
