@@ -91,3 +91,10 @@ npm run dev
 All icons were sourced from [ionicons](https://ionic.io/ionicons) and [SVG Repo](https://www.svgrepo.com/). 
 
 Special thanks to [LiminalElenyx](https://github.com/LiminalElenyx) for contributing to the [reasons-to-quit-smoking-api](https://github.com/dan-collins-dev/reasons-to-quit-smoking-api).
+
+## Responsible AI Usage
+To get a better idea of how Moq worked, I asked ChatGPT to generate a simple mock for GetAllLogs. This helped provide some more context as to how it worked and I was able to adapt it from there.
+
+## Known issues that I might fix before 4/10 NOON
+- Update controllers to return the appropriate status codes for POST, PUT, and DELETE.
+- I updated the IsNewDay method after discovering a bug, but didn't update the unit test. While it still passes, it isn't truly testing the updated method. 
