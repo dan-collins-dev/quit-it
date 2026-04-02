@@ -87,6 +87,11 @@
     {
         "Id": "85afb539-c762-42b7-a351-a9d999009a0e",
         "Date": 1775048649718,
+        "NumOfCigs": 10
+    },
+    {
+        "Id": "cb0b3c0f-aadf-40d0-aff8-bdf5c7027df5",
+        "Date": 1775133431320,
         "NumOfCigs": 1
     }
 ]
