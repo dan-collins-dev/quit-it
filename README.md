@@ -4,6 +4,8 @@
 
 Quit It is a web app that I built as a proof of concept for a smoking cessation app. This version currently uses a .NET 10 web API and related JSON files to persist data entered from the front-end built with Svelte and SvelteKit.
 
+**Note**: Any time I lit a cigarette was counted as a full one even if I took a puff and saved for later.
+
 ## Capstone Related Questions
 
 #### What did I learn from this project?
